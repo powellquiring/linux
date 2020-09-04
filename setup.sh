@@ -8,6 +8,7 @@ git config --global user.name "Powell Quiring"
 
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
+rm -f  ~/.ssh/id_rsa
 echo 'pbcopy < ~/.ssh/id_rsa'
 cat > ~/.ssh/id_rsa
 chmod 400 ~/.ssh/id_rsa
