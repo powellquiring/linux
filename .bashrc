@@ -1,0 +1,3 @@
+
+# Added
+set -o vi
