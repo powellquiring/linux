@@ -12,3 +12,6 @@ echo 'pbcopy < ~/.ssh/id_rsa'
 cat > ~/.ssh/id_rsa
 chmod 400 ~/.ssh/id_rsa
 
+git remote rm origin 
+git remote add origin git@github.com:powellquiring/linux.git
+
