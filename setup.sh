@@ -12,7 +12,9 @@ rm -f  ~/.ssh/id_rsa
 echo 'pbcopy < ~/.ssh/id_rsa'
 cat > ~/.ssh/id_rsa
 chmod 400 ~/.ssh/id_rsa
+ssh -o StrictHostKeyChecking=no github.com
 
 git remote rm origin 
 git remote add origin git@github.com:powellquiring/linux.git
+git push --set-upstream origin master
 
