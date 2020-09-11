@@ -22,5 +22,8 @@ git config --global push.default simple
 cat $DIR/.bashrc >> ~/.bashrc
 source .bashrc
 
+PATH=$DIR/bin:"$PATH"
+echo 'PATH='$DIR'/bin:"$PATH"' >> ~/.bashrc
+
 mkdir -p ~/bin
 curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | BINDIR=~/bin bash
