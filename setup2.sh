@@ -20,6 +20,7 @@ git push --set-upstream origin master
 git config --global push.default simple
 
 cat $DIR/.bashrc >> ~/.bashrc
+source .bashrc
 
 mkdir -p ~/bin
 curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | BINDIR=~/bin bash
