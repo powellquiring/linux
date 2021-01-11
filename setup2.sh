@@ -10,6 +10,7 @@ git config --global user.name "Powell Quiring"
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 rm -f  ~/.ssh/id_rsa
+echo "*" get ssh key from key protect
 key_payload $SSH_KEY_NAME
 echo "$PAYLOAD" > ~/.ssh/id_rsa
 chmod 400 ~/.ssh/id_rsa
@@ -21,14 +22,12 @@ git push --set-upstream origin master
 git config --global push.default simple
 git config pull.rebase false
 
-cat $DIR/.bashrc >> ~/.bashrc
-source .bashrc
+cp $DIR/.bashrc /tmp/.bashrc
 
 PATH=$DIR/bin:"$PATH"
-echo 'PATH='$DIR'/bin:"$PATH"' >> ~/.bashrc
+echo 'PATH='$DIR'/bin:"$PATH"' >> /tmp/.bashrc
+echo "*" get api key from key protect
 key_payload $API_KEY_NAME
-export APIKEY="$PAYLOAD"
-echo 'APIKEY='"$PAYLOAD" >> ~/.bashrc
+echo 'export APIKEY='"$PAYLOAD" >> /tmp/.bashrc
 
 mkdir -p ~/bin
-curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | BINDIR=~/bin bash
