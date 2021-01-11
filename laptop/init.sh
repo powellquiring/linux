@@ -1,22 +1,13 @@
 #!/bin/bash
-set -e
+set -o pipefail
 
-# key protect stuff
-KP_GUID=$(ibmcloud resource service-instances --output json | jq -r '.[]|select(.name=="dallas-account")|select(.sub_tyupe="kms")|.guid')
-SSH_KEY_NAME=ssh_key
-API_KEY_NAME=api_key
-
-KEY_ID=''
-key_id_find() {
-  local key_name="$1"
-  KEY_ID=$(ibmcloud kp -i $KP_GUID keys --output json | jq -r '.[]|select(.name=="'$key_name'")|.id')
-}
+# include common functions
+source $(dirname "$0")/../common.sh
 
 PAYLOAD=""
 key_store() {
   local key_name=$1
   local key_value="$2"
-  PAYLOAD=""
   key_id_find $key_name
   echo '*' Delete the existing key protect key: $key_name
   if [ x$KEY_ID = x ]; then
@@ -31,16 +22,16 @@ key_store() {
 
   echo '*' key contents
   key_id_find $key_name
-  json=$(ibmcloud kp key show -i $KP_GUID $KEY_ID --output json)
-  PAYLOAD=$(echo "$json" | jq -r .payload| base64 -d)
 }
 
 
 ssh_key_file_contents=$(cat ~/.ssh/id_rsa)
 key_store $SSH_KEY_NAME "$ssh_key_file_contents"
+key_payload $SSH_KEY_NAME
 echo "$PAYLOAD"
 
 ibmcloud iam api-key-delete linux --force
 apikey=$(ibmcloud iam api-key-create linux --output json | jq '.apikey')
 key_store $API_KEY_NAME $apikey
+key_payload $API_KEY_NAME
 echo $PAYLOAD
