@@ -22,6 +22,7 @@ git remote rm origin
 git remote add origin git@github.com:powellquiring/linux.git
 git push --set-upstream origin master
 git config --global push.default simple
+git config pull.rebase false
 
 cat $DIR/.bashrc >> ~/.bashrc
 source .bashrc
