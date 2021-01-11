@@ -15,9 +15,6 @@ echo "$PAYLOAD" > ~/.ssh/id_rsa
 chmod 400 ~/.ssh/id_rsa
 ssh -o StrictHostKeyChecking=no github.com
 
-key_payload $API_KEY_NAME
-export APIKEY="$PAYLOAD"
-
 git remote rm origin 
 git remote add origin git@github.com:powellquiring/linux.git
 git push --set-upstream origin master
@@ -29,6 +26,9 @@ source .bashrc
 
 PATH=$DIR/bin:"$PATH"
 echo 'PATH='$DIR'/bin:"$PATH"' >> ~/.bashrc
+key_payload $API_KEY_NAME
+export APIKEY="$PAYLOAD"
+echo 'APIKEY='"$PAYLOAD" >> ~/.bashrc
 
 mkdir -p ~/bin
 curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | BINDIR=~/bin bash
