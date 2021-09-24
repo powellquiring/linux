@@ -1,6 +1,6 @@
 # key protect stuff
 echo '*' get key protect guid
-KP_GUID=$(ibmcloud resource service-instances --output json | jq -r '.[]|select(.name=="dallas-account")|select(.sub_tyupe="kms")|.guid')
+KP_GUID=$(ibmcloud resource service-instances --output json | jq -r '.[]|select(.name=="us-south")|select(.sub_tyupe="kms")|.guid')
 SSH_KEY_NAME=ssh_key
 API_KEY_NAME=api_key
 
